@@ -1,6 +1,6 @@
 
 from scapy.all import *
-from scapy.contrib.ieee1722 import AvtpAcfCanHeader, AvtpTscfHeader, AvtpNtscfHeader
+from scapy.contrib.ieee1722 import AvtpAcfCanHeader, AvtpTscfHeader, AvtpNtscfHeader, AvtpAcfCanV2Header
 
 # Packet 1 - UDP + TSCFv0
 acf_pkt = AvtpAcfCanHeader(can_bus_id=0x14, can_identifier=0x45) / Raw(
@@ -67,7 +67,7 @@ pkt.show2()
 sendp(pkt, iface="lo")
 
 # Packet 8 - Ether + NTSCFv1
-acf_pkt = AvtpAcfCanHeader(can_bus_id=0x14, can_identifier=0x45) / Raw(
+acf_pkt = AvtpAcfCanV2Header(can_bus_id=0x3FF, can_identifier=0x45) / Raw(
     load="\x01\x02\x03"
 )
 cf_pkt = AvtpNtscfHeader(version=1, encapsulation_sequence_num=3, acf_tlv=acf_pkt)
